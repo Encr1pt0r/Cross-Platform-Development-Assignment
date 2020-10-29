@@ -15,12 +15,11 @@ const AddItemScreen = ({navigation, route}) => {
             <TextInput style={styles.textinput}
                 placeholder="Type title here" value={title}
                 onChangeText={(text) => setTitle(text)}
-                /* This attribute above will log the changes in the 
-                textbox so we caught it in a variable and passed it to another one*/
             />
+            
             <Text style={styles.textlabel}>Enter pages you have read</Text>
             <TextInput style={styles.textinput}
-                placeholder="Type pages here" value={pages}
+                placeholder="Type pages read here" value={pages}
                 onChangeText={(text) => setPages(text)}
                 multiline={false}
             />
@@ -40,7 +39,12 @@ const AddItemScreen = ({navigation, route}) => {
             />
             
             <Button title="Submit Entry" onPress={() => {
-                callback(title, pages, rating, comment);
+                callback({
+                    title: title, 
+                    pages: pages, 
+                    rating: rating, 
+                    comment: comment
+                });
                 navigation.pop();
             }} />
         </View>

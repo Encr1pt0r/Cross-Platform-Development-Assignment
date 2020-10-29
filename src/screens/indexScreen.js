@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -10,7 +10,7 @@ const myDiary = [
         pages: "100-1000",
         rating: 3,
         comment: "Good boy!",
-    } , {
+    }, {
         id: -2,
         date: new Date(),
         title: "This is a book!",
@@ -20,39 +20,56 @@ const myDiary = [
     }
 ];
 
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'AddEntry':
+            return [
+                ...state,
+                {
+                    id: Math.floor(Math.random() * 99999),
+                    title: action.payload.title,
+                    pages: action.payload.pages,
+                    rating: action.payload.rating,
+                    comment: action.payload.comment,
+                    date: new Date()
+                }
+            ];
+        case 'UpdateEntry':
+            return state.map((e) => {
+                if (e.id === action.payload.id) {
+                    return action.payload;
+                } else {
+                    return e;
+                }
+            })
+        case 'DeleteEntry':
+            return state.filter((e) => e.id !== action.payload);
+        default:
+            return state;
+    }
+}
+
+
 const indexScreen = ({ navigation }) => {
+    const [state, dispatch] = useReducer(reducer, myDiary);
+
     navigation.setOptions({
         headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Add', {callback: addNewEntry})}>
+            <TouchableOpacity onPress={() => navigation.navigate('Add',
+                {
+                    callback: (payload) => {
+                        dispatch({ type: 'AddEntry', payload: payload })
+                    }
+                })}>
                 <FontAwesome5 name="plus" size={32} color="black" />
             </TouchableOpacity>
         )
     });
 
-    const [entry, setEntry] = useState(myDiary);
-    const addNewEntry = (title, pages, rating, comment) => {
-        setEntry([
-            ...entry,
-            {
-                id: Math.floor(Math.random() * 99999),
-                title: title,
-                pages: pages,
-                rating: rating,
-                comment: comment,
-                date: new Date(),
-            }
-        ]);
-    };
-
-    const removeEntry = (id) => {
-        setEntry(myDiary.splice(myDiary.indexOf(id), 1));
-    }
-
-    //console.log(entry);
     return (
         <View>
             <FlatList
-                data={entry}
+                data={state}
                 keyExtractor={
                     (e) => e.id.toString()
                 }

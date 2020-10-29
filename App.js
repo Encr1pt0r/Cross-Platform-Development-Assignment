@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import indexScreen from './src/screens/indexScreen';
+import indexScreen from './src/screens/IndexScreen';
 import AddItemScreen from './src/screens/additemscreen';
 import ViewItemScreen from './src/screens/ViewItemScreen';
 
