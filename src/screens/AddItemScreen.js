@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import DiaryContext from '../contexts/DiaryContext';
 
-const AddItemScreen = ({navigation, route}) => {
-    const { callback } = route.params;
+const AddItemScreen = ({navigation}) => {
+    const { create } = useContext(DiaryContext);
     const [title, setTitle] = useState('');
     const [pages, setPages] = useState('');
     const [rating, setRating] = useState('');
@@ -39,13 +40,7 @@ const AddItemScreen = ({navigation, route}) => {
             />
             
             <Button title="Submit Entry" onPress={() => {
-                callback({
-                    title: title, 
-                    pages: pages, 
-                    rating: rating, 
-                    comment: comment
-                });
-                navigation.pop();
+                create(title, pages, rating, comment, () => { navigation.pop()});
             }} />
         </View>
     );

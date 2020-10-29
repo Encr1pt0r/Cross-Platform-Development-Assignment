@@ -1,66 +1,16 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useContext } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-const myDiary = [
-    {
-        id: -1,
-        date: new Date(),
-        title: "This is a book!",
-        pages: "100-1000",
-        rating: 3,
-        comment: "Good boy!",
-    }, {
-        id: -2,
-        date: new Date(),
-        title: "This is a book!",
-        pages: "100-1000",
-        rating: 3,
-        comment: "Good boy!",
-    }
-];
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'AddEntry':
-            return [
-                ...state,
-                {
-                    id: Math.floor(Math.random() * 99999),
-                    title: action.payload.title,
-                    pages: action.payload.pages,
-                    rating: action.payload.rating,
-                    comment: action.payload.comment,
-                    date: new Date()
-                }
-            ];
-        case 'UpdateEntry':
-            return state.map((e) => {
-                if (e.id === action.payload.id) {
-                    return action.payload;
-                } else {
-                    return e;
-                }
-            })
-        case 'DeleteEntry':
-            return state.filter((e) => e.id !== action.payload);
-        default:
-            return state;
-    }
-}
-
+import DiaryContext from  '../contexts/DiaryContext';
 
 const indexScreen = ({ navigation }) => {
-    const [state, dispatch] = useReducer(reducer, myDiary);
+    
+    const {state} = useContext(DiaryContext);
+    console.log(state);
 
     navigation.setOptions({
         headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Add',
-                {
-                    callback: (payload) => {
-                        dispatch({ type: 'AddEntry', payload: payload })
-                    }
-                })}>
+            <TouchableOpacity onPress={() => navigation.navigate('Add')}>
                 <FontAwesome5 name="plus" size={32} color="black" />
             </TouchableOpacity>
         )
