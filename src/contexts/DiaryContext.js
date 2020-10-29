@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, { useReducer } from 'react';
 
 const DiaryContext = React.createContext();
 
@@ -43,7 +43,7 @@ const DairyReducer = (state, action) => {
                 }
             })
         case 'DeleteEntry':
-            return state.filter((e) => e.id !== action.payload);
+            return state.filter((e) => e.id !== action.payload.id);
         default:
             return state;
     }
@@ -53,23 +53,44 @@ export const DiaryProvider = ({ children }) => {
     const [state, dispatch] = useReducer(DairyReducer, InitalDiary);
 
     const addDairyEntry = (title, pages, rating, comment, callback) => {
-        dispatch({ 
-            type: 'AddEntry', 
+        dispatch({
+            type: 'AddEntry',
             payload: {
-                title: title, 
-                pages: pages, 
-                rating: rating, 
-                comment: comment} 
-            });
-        if(callback) {
-            callback();
-        }
+                title: title,
+                pages: pages,
+                rating: rating,
+                comment: comment
+            }
+        });
+        if (callback) { callback(); }
     }
+
+    const deleteDairyEntry = (id, callback) => {
+        dispatch({ type: 'DeleteEntry', payload: { id: id } });
+        if (callback) { callback(); }
+    }
+
+    // const updateDairyEntry = (id, title, pages, rating, comment, date, callback) => {
+    //     dispatch({
+    //         type: 'UpdateEntry',
+    //         payload: {
+    //             id: id,
+    //             title: title, 
+    //             pages: pages, 
+    //             rating: rating,  
+    //             comment: comment
+    //             date: date,
+    //             } 
+    //         }); 
+    //     });
+    // }
 
     return (
         <DiaryContext.Provider value={{
             state: state,
             create: addDairyEntry,
+            remove: deleteDairyEntry,
+            //update: updateDairyEntry,
         }}>
             {children}
         </DiaryContext.Provider>

@@ -1,11 +1,13 @@
 import React, { useState, useReducer, useContext } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import DiaryContext from  '../contexts/DiaryContext';
+import { Ionicons } from '@expo/vector-icons';
+
+import DiaryContext from '../contexts/DiaryContext';
 
 const indexScreen = ({ navigation }) => {
-    
-    const {state} = useContext(DiaryContext);
+
+    const { state, remove } = useContext(DiaryContext);
     console.log(state);
 
     navigation.setOptions({
@@ -51,9 +53,13 @@ const indexScreen = ({ navigation }) => {
                                     </Text>
                                 </View>
                                 <Text style={styles.titleText}>{item.title}</Text>
+
+                                <TouchableOpacity onPress={() => { remove(item.id) }}>
+                                    <Ionicons name="md-remove-circle-outline" size={30} color="black" />
+                                </TouchableOpacity>
+
                             </View>
                         </TouchableOpacity>
-
                     );
                 }}
             />
