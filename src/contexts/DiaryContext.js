@@ -31,6 +31,8 @@ const DairyReducer = (state, action) => {
             })
         case 'DeleteEntry':
             return state.filter((e) => e.id !== action.payload.id);
+
+            // I found an error when item are deleted
         case 'SaveEntries':
             try {
                 AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -88,11 +90,13 @@ export const DiaryProvider = ({ children }) => {
 
     const deleteDairyEntry = (id, callback) => {
         dispatch({ type: 'DeleteEntry', payload: { id: id } });
+        dispatch({type: 'SaveEntries'});
         if (callback) { callback(); }
     }
 
     const updateDairyEntry = (id, title, pages, rating, comment, date, callback) => {
         dispatch({ type: 'UpdateEntry', payload: {id, title, pages, rating, comment, date}});
+        dispatch({type: 'SaveEntries'});
         if (callback) { callback(); }
     }
 

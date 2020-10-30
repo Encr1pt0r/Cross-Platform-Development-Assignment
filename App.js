@@ -18,12 +18,12 @@ const App = () => {
           <Stack.Screen
             name="index"
             component={indexScreen}
-            Options={{ title: "Diary App" }}
+            options={{ title: "Diary App" }}
           />
           <Stack.Screen
             name="Add"
             component={AddItemScreen}
-            Options={{ title: "Add an Item" }}
+            options={{ title: "Add Item" }}
           />
           <Stack.Screen
             name="View"
@@ -33,7 +33,7 @@ const App = () => {
           <Stack.Screen
             name="Edit"
             component={EditItemScreen}
-            Options={{ title: "Edit an Item" }}
+            options={{ title: "Edit Item" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -41,13 +41,6 @@ const App = () => {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;

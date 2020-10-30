@@ -5,53 +5,54 @@ import DiaryContext from '../contexts/DiaryContext';
 
 // I can improve on this in some areas
 // 1. Make it update immediately when the changes are comfirmed, Gordon said I can use Context and ID to sor this issue
-// 2. I can beatify this area using styles
+// 2. I can beatify this area using styles: Areas covered, ViewItemScreen
 // 3. I can make the inputs hold the current values in the screen
 // 4. I can implement a 5 start rating system from that link I found
 // 5. Implement Persistant storage
 // 6. Use the camera to add a cover page
 
 const EditItemScreen = ({navigation, route}) => {
-    const { id } = route.params;
+    const { id, title, pages, rating, comment } = route.params;
     const { state, update } = useContext(DiaryContext);
     const currentEntry = state.find((e) => e.id === id);
 
-    const [title, setTitle] = useState('');
-    const [pages, setPages] = useState('');
-    const [rating, setRating] = useState('');
-    const [comment, setComment] = useState('');
+    const [newtitle, setNewTitle] = useState('');
+    const [newpages, setNewPages] = useState('');
+    const [newrating, setNewRating] = useState('');
+    const [newcomment, setNewComment] = useState('');
     
     return (
         <View>
             <Text style={styles.textlabel}>Enter a Title</Text>
             <TextInput style={styles.textinput}
-                placeholder="Type title here" value={title}
-                onChangeText={(text) => setTitle(text)}
+                placeholder={title} value={newtitle}
+                onChangeText={(text) => setNewTitle(text)}
             />
             
             <Text style={styles.textlabel}>Enter pages you have read</Text>
             <TextInput style={styles.textinput}
-                placeholder="Type pages read here" value={pages}
-                onChangeText={(text) => setPages(text)}
+                placeholder={pages} value={newpages}
+                onChangeText={(text) => setNewPages(text)}
                 multiline={false}
             />
 
             <Text style={styles.textlabel}>Enter rating</Text>
             <TextInput style={styles.textinput}
-                placeholder="Type rating between 1-5" value={rating}
-                onChangeText={(text) => setRating(text)}
+                placeholder={rating} value={newrating}
+                onChangeText={(text) => setNewRating(text)}
                 multiline={false}
             />
 
             <Text style={styles.textlabel}>Teacher's comment</Text>
             <TextInput style={styles.textinput}
-                placeholder="Type comment here" value={comment}
-                onChangeText={(text) => setComment(text)}
+                placeholder={comment} value={newcomment}
+                onChangeText={(text) => setNewComment(text)}
                 multiline={true}
+                numberOfLines={5}
             />
             
             <Button title="Save changes" onPress={() => {
-                update(currentEntry.id, title, pages, rating, comment, currentEntry.date, () => navigation.pop());
+                update(currentEntry.id, newtitle, newpages, newrating, newcomment, currentEntry.date, () => navigation.pop());
             }} />
         </View>
     );
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     textlabel: {
         fontSize: 18,
         padding: 5,
+        alignSelf: 'center',
     }
 });
 

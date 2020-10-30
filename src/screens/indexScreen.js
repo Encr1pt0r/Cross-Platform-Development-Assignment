@@ -13,7 +13,7 @@ const indexScreen = ({ navigation }) => {
     navigation.setOptions({
         headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate('Add')}>
-                <FontAwesome5 name="plus" size={32} color="black" />
+                <FontAwesome5 style={styles.icon} name="plus" size={32} color="black" />
             </TouchableOpacity>
         )
     });
@@ -27,8 +27,6 @@ const indexScreen = ({ navigation }) => {
                 }
                 renderItem={({ item }) => {
                     console.log(item);
-                    // if you look closely it has properties you can call, 
-                    // I did this in the arrow function above to call the title
                     return (
                         <TouchableOpacity
                             onPress={() => {
@@ -88,6 +86,9 @@ const styles = new StyleSheet.create({
         paddingLeft: 15,
         flex: 1,
         alignSelf: 'flex-start',
+    },
+    icon: {
+        paddingRight: 10,
     }
 });
 
