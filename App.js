@@ -12,6 +12,14 @@ const Stack = createStackNavigator();
 
 // Stack navigator is used to navigate through application.
 
+// THINGS THAT I CAN IMPROVE ON HERE...
+// 1. Make it update immediately when the changes are comfirmed, Gordon said I can use Context and ID to sor this issue
+// 2. I can beatify this area using styles: Areas covered, ViewItemScreen
+// 3. I can make the inputs hold the current values in the screen
+// 4. I can implement a 5 start rating system from that link I found
+// 5. Implement Persistant storage (if there was a tick it would be here)
+// 6. Use the camera to add a cover page
+
 const App = () => {
   return (
     <DiaryProvider>
