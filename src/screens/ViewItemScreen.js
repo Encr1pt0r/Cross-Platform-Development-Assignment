@@ -1,26 +1,34 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, Button, StyleSheet} from 'react-native';
+import DiaryContext from '../contexts/DiaryContext';
 import StarRating from '../components/StarRating/StarRating';
 
+//elements pressed from the FlatList are loaded here.
+
 const ViewItemScreen = ({ navigation, route }) => {
-    const { id, title, rating, comment, pages, date } = route.params;
-    console.log(rating);
+    const { id } = route.params;
+    const { state } = useContext(DiaryContext);
+    const currentEntry = state.find((e) => e.id === id);
+    console.log(currentEntry.rating);
+
+    // screen updates properly when updated, used context to find the state instead of taking it from route
+    // id is only used from route.params to take the right element from DairyContext.
 
     return (
         <View>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.date}>Started reading: {new Date(date).toLocaleDateString()}</Text>
+            <Text style={styles.title}>{currentEntry.title}</Text>
+            <Text style={styles.date}>Started reading: {new Date(currentEntry.date).toLocaleDateString()}</Text>
             <View style={styles.pagesAndRatingContainer}>
                 <Text style={styles.subtitle}>Pages read:</Text>
-                <Text style={styles.pagesAndRatingItem}>{pages}</Text>
+                <Text style={styles.pagesAndRatingItem}>{currentEntry.pages}</Text>
                 <Text style={styles.subtitle}>Rating:</Text>
-                <Text style={styles.pagesAndRatingItem}>{rating}/5</Text>
-                <StarRating num={rating} />
+                <Text style={styles.pagesAndRatingItem}>{currentEntry.rating}/5</Text>
+                {/* <StarRating num={rating} />  This was the call for the StarRating.js*/}
             </View>
             <Text style={styles.commentTitle}>Teacher's comments:</Text>
-            <Text style={styles.comment}>{comment}</Text>
+            <Text style={styles.comment}>{currentEntry.comment}</Text>
             <Button style={styles.button} title='Edit Entry' onPress={() => {
-                navigation.navigate('Edit', { id: id, title: title, pages: pages, rating: rating, comment: comment });
+                navigation.navigate('Edit', { id: id, title: currentEntry.title, pages: currentEntry.pages, rating: currentEntry.rating, comment: currentEntry.comment });
             }} />
         </View>
     );
