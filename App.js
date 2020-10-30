@@ -6,6 +6,7 @@ import indexScreen from './src/screens/IndexScreen';
 import AddItemScreen from './src/screens/additemscreen';
 import ViewItemScreen from './src/screens/ViewItemScreen';
 import { DiaryProvider } from './src/contexts/DiaryContext';
+import EditItemScreen from './src/screens/EditItemScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ const App = () => {
             name="View"
             component={ViewItemScreen}
             options={{ title: "View Item" }}
+          />
+          <Stack.Screen
+            name="Edit"
+            component={EditItemScreen}
+            Options={{ title: "Edit an Item" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

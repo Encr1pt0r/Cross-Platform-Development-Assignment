@@ -57,7 +57,6 @@ const indexScreen = ({ navigation }) => {
                                 <TouchableOpacity onPress={() => { remove(item.id) }}>
                                     <Ionicons name="md-remove-circle-outline" size={30} color="black" />
                                 </TouchableOpacity>
-
                             </View>
                         </TouchableOpacity>
                     );
