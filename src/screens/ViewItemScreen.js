@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     date: {
         fontSize: 22,
         paddingTop: 15,
+        alignSelf: 'center',
     },
     pagesAndRatingContainer: {
         flexDirection: 'row',

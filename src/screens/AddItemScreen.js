@@ -37,6 +37,7 @@ const AddItemScreen = ({navigation}) => {
                 placeholder="Type comment here" value={comment}
                 onChangeText={(text) => setComment(text)}
                 multiline={true}
+                numberOfLines={5}
             />
             
             <Button title="Submit Entry" onPress={() => {
