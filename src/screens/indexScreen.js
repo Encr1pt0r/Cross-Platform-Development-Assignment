@@ -1,9 +1,10 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
 import DiaryContext from '../contexts/DiaryContext';
+
+// This file is the first screen the user sees, it includes the FlatList element
 
 const indexScreen = ({ navigation }) => {
 

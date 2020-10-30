@@ -3,19 +3,12 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import DiaryContext from '../contexts/DiaryContext';
 
-// I can improve on this in some areas
-// 1. Make it update immediately when the changes are comfirmed, Gordon said I can use Context and ID to sor this issue
-// 2. I can beatify this area using styles: Areas covered, ViewItemScreen
-// 3. I can make the inputs hold the current values in the screen
-// 4. I can implement a 5 start rating system from that link I found
-// 5. Implement Persistant storage
-// 6. Use the camera to add a cover page
+// This is where you can edit the element.
 
 const EditItemScreen = ({navigation, route}) => {
     const { id, title, pages, rating, comment } = route.params;
     const { state, update } = useContext(DiaryContext);
     const currentEntry = state.find((e) => e.id === id);
-
     const [newtitle, setNewTitle] = useState('');
     const [newpages, setNewPages] = useState('');
     const [newrating, setNewRating] = useState('');

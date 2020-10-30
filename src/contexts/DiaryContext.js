@@ -1,10 +1,11 @@
 import React, { useReducer, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
+// Context and Reducer are here to manage updates to the FlatList.
+// Async storage is used to keep elements stored.
+
 const STORAGE_KEY = "dairy_storage";
-
 const DiaryContext = React.createContext();
-
 const InitalDiary = [];
 
 const DairyReducer = (state, action) => {

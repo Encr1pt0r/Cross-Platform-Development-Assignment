@@ -10,6 +10,8 @@ import EditItemScreen from './src/screens/EditItemScreen';
 
 const Stack = createStackNavigator();
 
+// Stack navigator is used to navigate through application.
+
 const App = () => {
   return (
     <DiaryProvider>

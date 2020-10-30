@@ -3,6 +3,9 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import DiaryContext from '../contexts/DiaryContext';
 
+// This is the screen to add new elements to the FlatList. 
+// It holds TextInputs
+
 const AddItemScreen = ({navigation}) => {
     const { create } = useContext(DiaryContext);
     const [title, setTitle] = useState('');
