@@ -31,8 +31,6 @@ const DairyReducer = (state, action) => {
             })
         case 'DeleteEntry':
             return state.filter((e) => e.id !== action.payload.id);
-
-            // I found an error when item are deleted
         case 'SaveEntries':
             try {
                 AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -91,6 +89,9 @@ export const DiaryProvider = ({ children }) => {
     const deleteDairyEntry = (id, callback) => {
         dispatch({ type: 'DeleteEntry', payload: { id: id } });
         dispatch({type: 'SaveEntries'});
+        // I found an error when an item is deleted it does not update storage so when i reload it, 
+        // it returns from the dead,
+        // So I added the dispatch method here so it does that it really deletes from memory :)
         if (callback) { callback(); }
     }
 
